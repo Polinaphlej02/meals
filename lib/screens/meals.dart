@@ -3,27 +3,34 @@ import 'package:meals/models/meal.dart';
 import 'package:meals/screens/meal_details_screen.dart';
 import 'package:meals/widgets/meal_item.dart';
 
-
 class MealsScreen extends StatelessWidget {
-  const MealsScreen({super.key, this.title, required this.meals, required this.onToggleFavoriteMeal});
+  const MealsScreen(
+      {super.key,
+      this.title,
+      required this.meals,
+});
 
   final String? title;
   final List<Meal> meals;
-  final void Function(Meal meal) onToggleFavoriteMeal;
-  
+
+
   void _selectedMeal(BuildContext context, Meal meal) {
-    Navigator.of(context).push(MaterialPageRoute(builder: (ctx) => MealDetailsScreen(meal: meal, onToggleFavoriteMeal: onToggleFavoriteMeal,)));
-    }
+    Navigator.of(context).push(MaterialPageRoute(
+        builder: (ctx) => MealDetailsScreen(
+              meal: meal,
+            )));
+  }
 
   @override
   Widget build(BuildContext context) {
-
     Widget content = ListView.builder(
         itemCount: meals.length,
         itemBuilder: (context, index) {
-          return MealItem(meal: meals[index], onSelectedMeal: (meal) {
-            _selectedMeal(context, meals[index]);
-          });
+          return MealItem(
+              meal: meals[index],
+              onSelectedMeal: (meal) {
+                _selectedMeal(context, meals[index]);
+              });
         });
 
     if (meals.isEmpty) {
@@ -31,8 +38,11 @@ class MealsScreen extends StatelessWidget {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            Text("Nothing here", style: Theme.of(context).textTheme.headlineLarge!.copyWith(
-                  color: Theme.of(context).colorScheme.onSecondaryContainer),),
+            Text(
+              "Nothing here",
+              style: Theme.of(context).textTheme.headlineLarge!.copyWith(
+                  color: Theme.of(context).colorScheme.onSecondaryContainer),
+            ),
             const SizedBox(
               height: 16,
             ),
